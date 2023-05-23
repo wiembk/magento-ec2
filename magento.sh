@@ -126,8 +126,20 @@ sudo chmod u+x bin/magento
 ################# Install Magento
 sudo php bin/magento setup:install --base-url="http://${BaseUrl}" --db-host="${DBHost}" --db-name="${DBName}" --db-user="${DBName}" --db-password="${DBPassword}" --admin-firstname=Admin --admin-lastname=Admin --admin-email=admin@admin.com --admin-user=admin --admin-password="${DBPassword}" --language=en_US --currency=USD --timezone=America/Chicago --backend-frontname=admin --search-engine=elasticsearch7 --elasticsearch-host="${EsHost}" --elasticsearch-port="${EsPort}" --elasticsearch-enable-auth=1 --elasticsearch-username="${EsUser}" --elasticsearch-password="${EsPassword}"
 
-sudo sed -i 's#DocumentRoot /var/www/html#DocumentRoot /var/www/html/magento2/pub#g' /etc/apache2/sites-available/000-default.conf
-sudo sed -i '/<\/VirtualHost>/i \	<Directory "/var/www/html">\n	AllowOverride all\n	</Directory>' /etc/apache2/sites-available/000-default.conf
+cat <<EOF | sudo tee /etc/apache2/sites-available/000-default.conf > /dev/null
+<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/html/magento2/pub
+
+    ErrorLog \${APACHE_LOG_DIR}/error.log
+    CustomLog \${APACHE_LOG_DIR}/access.log combined
+
+    <Directory "/var/www/html">
+        AllowOverride all
+    </Directory>
+</VirtualHost>
+EOF
+
 
 sudo systemctl restart apache2
 sudo chmod -R 777 var pub/static generated generated/
