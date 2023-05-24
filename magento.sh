@@ -1,14 +1,6 @@
 #!/bin/bash
 ####################### install aws cli
 
-AccessKey='AKIA4PZTVEZPOLAZTGJK'
-SecretKey='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'
-
-sudo apt-get update
-sudo apt-get install -y awscli
-
-aws configure set aws_access_key_id "$AccessKey"
-aws configure set aws_secret_access_key "$SecretKey"
 ######################### Parameters
 
 BaseUrl=$(aws cloudformation list-exports --query "Exports[?Name=='magento-alb-ALBEndpoint'].Value" --output text --region eu-central-1)
