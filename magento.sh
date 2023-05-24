@@ -1,6 +1,11 @@
 #!/bin/bash
 ####################### install aws cli
-
+AccessKey='AKIA4PZTVEZPNB5I42WJ'
+SecretKey='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'
+sudo apt-get update
+sudo apt-get install -y awscli
+aws configure set aws_access_key_id "$AccessKey"
+aws configure set aws_secret_access_key "$SecretKey"
 ######################### Parameters
 
 BaseUrl=$(aws cloudformation list-exports --query "Exports[?Name=='magento-alb-ALBEndpoint'].Value" --output text --region eu-central-1)
@@ -44,7 +49,7 @@ sudo apt install mysql-server -y
 #sudo mysql -u magento2 -pwiem2202 -e "CREATE DATABASE magento2;"
 
 ############### configure RDS mysql server
-sudo mysql -u "$DBName" -p"$DBPassword" --host "$DBHost" -e "CREATE DATABASE magento2;"
+sudo mysql -u ${DBName} -p${DBPassword} --host ${DBHost} -e "CREATE DATABASE magento2;"
 
 
 
@@ -116,7 +121,7 @@ sudo chown -R ubuntu:www-data .
 sudo chmod u+x bin/magento
 
 ################# Install Magento
-sudo php bin/magento setup:install --base-url="http://${BaseUrl}" --db-host="${DBHost}" --db-name="${DBName}" --db-user="${DBName}" --db-password="${DBPassword}" --admin-firstname=Admin --admin-lastname=Admin --admin-email=admin@admin.com --admin-user=admin --admin-password="${DBPassword}" --language=en_US --currency=USD --timezone=America/Chicago --backend-frontname=admin --search-engine=elasticsearch7 --elasticsearch-host="https://${EsHost}" --elasticsearch-port="${EsPort}" --elasticsearch-enable-auth=1 --elasticsearch-username="${EsUser}" --elasticsearch-password="${EsPassword}"
+sudo php bin/magento setup:install --base-url=http://${BaseUrl} --db-host=${DBHost} --db-name=${DBName} --db-user=${DBName} --db-password=${DBPassword} --admin-firstname=Admin --admin-lastname=Admin --admin-email=admin@admin.com --admin-user=admin --admin-password=${DBPassword} --language=en_US --currency=USD --timezone=America/Chicago --backend-frontname=admin --search-engine=elasticsearch7 --elasticsearch-host=https://${EsHost} --elasticsearch-port=${EsPort} --elasticsearch-enable-auth=1 --elasticsearch-username=${EsUser} --elasticsearch-password=${EsPassword}
 
 cat <<EOF | sudo tee /etc/apache2/sites-available/000-default.conf > /dev/null
 <VirtualHost *:80>
