@@ -166,6 +166,9 @@ sudo php bin/magento setup:di:compile
 sudo php bin/magento cache:flush
 sudo php bin/magento cache:clean
 
+sudo php bin/magento indexer:reindex
+
+
 echo "***************Redis setup completed.***********"
 
 ############ install s3 module
