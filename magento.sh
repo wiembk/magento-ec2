@@ -149,19 +149,14 @@ echo "***************Magento 2 setup completed.***********"
 
 ############### Install Redis
 
+
 sudo apt-get install redis -y
-sudo bin/magento setup:config:set --cache-backend=redis --cache-backend-redis-server=${RedisServer} --cache-backend-redis-port=${RedisPort} --cache-backend-redis-db=0
-
 sudo bin/magento setup:config:set --page-cache=redis --page-cache-redis-server=${RedisServer} --page-cache-redis-port=${RedisPort} --page-cache-redis-db=1
-#sudo php bin/magento setup:upgrade
-#sudo php bin/magento setup:di:compile
-
-#sudo php bin/magento cache:flush
-#sudo php bin/magento cache:clean
 
 sudo bin/magento setup:config:set --session-save=redis --session-save-redis-host=${RedisServer} --session-save-redis-port=${RedisPort} --session-save-redis-log-level=4 --session-save-redis-db=2
-#sudo php bin/magento setup:upgrade
-#sudo php bin/magento setup:di:compile
+
+sudo bin/magento setup:config:set --cache-backend=redis --cache-backend-redis-server=${RedisServer} --cache-backend-redis-port=${RedisPort} --cache-backend-redis-db=0
+
 
 sudo php bin/magento cache:flush
 sudo php bin/magento cache:clean
