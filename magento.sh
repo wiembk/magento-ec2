@@ -160,6 +160,11 @@ sudo bin/magento setup:config:set --cache-backend=redis --cache-backend-redis-se
 
 sudo php bin/magento cache:flush
 sudo php bin/magento cache:clean
+sudo php bin/magento setup:upgrade
+sudo php bin/magento setup:di:compile
+
+sudo php bin/magento cache:flush
+sudo php bin/magento cache:clean
 
 echo "***************Redis setup completed.***********"
 
