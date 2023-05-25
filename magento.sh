@@ -163,8 +163,8 @@ sudo bin/magento setup:config:set --session-save=redis --session-save-redis-host
 #sudo php bin/magento setup:upgrade
 #sudo php bin/magento setup:di:compile
 
-#sudo php bin/magento cache:flush
-#sudo php bin/magento cache:clean
+sudo php bin/magento cache:flush
+sudo php bin/magento cache:clean
 
 echo "***************Redis setup completed.***********"
 
