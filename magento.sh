@@ -51,13 +51,9 @@ sudo apt install mysql-server -y
 ############### configure RDS mysql server
 sudo mysql -u ${DBName} -p${DBPassword} --host ${DBHost} -e "CREATE DATABASE magento2;"
 
-
-
-
 ################## Update and install PHP 7.4
 sudo apt update
 sudo apt install php7.4 libapache2-mod-php php-mysql -y
-
 
 ######################## Replace index.html with index.php and vice versa
 sudo sed -i 's/DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm/DirectoryIndex index.php index.cgi index.pl index.html index.xhtml index.htm/g' /etc/apache2/mods-enabled/dir.conf
@@ -89,29 +85,21 @@ sudo sed -i 's/memory_limit = -1/memory_limit = 2G/g' /etc/php/7.4/cli/php.ini
 #sudo sed -i 's/#cluster.name/cluster.name/g' /etc/elasticsearch/elasticsearch.yml
 #sudo sed -i 's/#network.host: 192.168.0.1/network.host: 127.0.0.1/g' /etc/elasticsearch/elasticsearch.yml
 #sudo sed -i 's/#http.port: 9200/http.port: 9200/g' /etc/elasticsearch/elasticsearch.yml
-
 #sudo systemctl daemon-reload
 #sudo systemctl restart elasticsearch.service
 #curl -X GET 'http://localhost:9200'
 
-
-
 ################### install composer
-
 cd /var/www/html/
 sudo wget https://getcomposer.org/installer -O composer-setup.php
 sudo php composer-setup.php --install-dir=/usr/bin --filename=composer
 composer
-
 sudo chown -R  ubuntu:ubuntu /var/www/html/
-
 sudo -u ubuntu composer --no-interaction config --global http-basic.repo.magento.com "$PublicKey" "$PrivateKey"
-
 sudo -u ubuntu composer create-project --no-install --repository-url=https://repo.magento.com/ magento/project-community-edition=2.4.3 magento2
 cd magento2
 sudo -u ubuntu composer config --global allow-plugins true
 sudo -u ubuntu composer install
-
 
 #################### Set directory permissions
 cd /var/www/html/magento2
@@ -123,6 +111,8 @@ sudo chmod u+x bin/magento
 ################# Install Magento
 sudo php bin/magento setup:install --base-url=http://${BaseUrl} --db-host=${DBHost} --db-name=${DBName} --db-user=${DBName} --db-password=${DBPassword} --admin-firstname=Admin --admin-lastname=Admin --admin-email=admin@admin.com --admin-user=admin --admin-password=${DBPassword} --language=en_US --currency=USD --timezone=America/Chicago --backend-frontname=admin --search-engine=elasticsearch7 --elasticsearch-host=https://${EsHost} --elasticsearch-port=${EsPort} --elasticsearch-enable-auth=1 --elasticsearch-username=${EsUser} --elasticsearch-password=${EsPassword}
 
+
+################# configure Apache
 cat <<EOF | sudo tee /etc/apache2/sites-available/000-default.conf > /dev/null
 <VirtualHost *:80>
     ServerAdmin webmaster@localhost
@@ -136,8 +126,6 @@ cat <<EOF | sudo tee /etc/apache2/sites-available/000-default.conf > /dev/null
     </Directory>
 </VirtualHost>
 EOF
-
-
 sudo systemctl restart apache2
 sudo chmod -R 777 var pub/static generated generated/
 sudo php bin/magento module:disable Magento_TwoFactorAuth
@@ -148,15 +136,12 @@ sudo php bin/magento module:disable Magento_TwoFactorAuth
 echo "***************Magento 2 setup completed.***********"
 
 ############### Install Redis
-
-
 sudo apt-get install redis -y
 sudo bin/magento setup:config:set --page-cache=redis --page-cache-redis-server=${RedisServer} --page-cache-redis-port=${RedisPort} --page-cache-redis-db=1
 
 sudo bin/magento setup:config:set --session-save=redis --session-save-redis-host=${RedisServer} --session-save-redis-port=${RedisPort} --session-save-redis-log-level=4 --session-save-redis-db=2
 
 sudo bin/magento setup:config:set --cache-backend=redis --cache-backend-redis-server=${RedisServer} --cache-backend-redis-port=${RedisPort} --cache-backend-redis-db=0
-
 
 sudo php bin/magento cache:flush
 sudo php bin/magento cache:clean
@@ -165,9 +150,7 @@ sudo php bin/magento setup:di:compile
 
 sudo php bin/magento cache:flush
 sudo php bin/magento cache:clean
-
 sudo php bin/magento indexer:reindex
-
 
 echo "***************Redis setup completed.***********"
 
@@ -176,13 +159,10 @@ echo "***************Redis setup completed.***********"
 #sudo wget https://github.com/wiembk/s3-extention/archive/master.zip
 #unzip master.zip
 #sudo cp s3-extention-main/app /var/www/html/magento2
-
 #cd /var/www/html/magento2
 #sudo composer require aws/aws-sdk-php
 #sudo php bin/magento setup:upgrade
 #sudo php bin/magento setup:di:compile
-
-
 #sudo php bin/magento cache:flush
 #sudo php bin/magento cache:clean
 
