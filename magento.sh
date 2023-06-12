@@ -34,15 +34,15 @@ systemctl is-enabled apache2
 ####################### Install MySQL and configure root user
 sudo apt install mysql-server -y
 #sudo mysql -e "SELECT user,authentication_string,plugin,host FROM mysql.user;"
-#sudo mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'wiem2202';"
+#sudo mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '{DBPassword}';"
 #sudo mysql -e "SELECT user,authentication_string,plugin,host FROM mysql.user;"
 
-#sudo mysql -u root -pwiem2202 -e "SELECT user,authentication_string,plugin,host FROM mysql.user;"
-#sudo mysql -u root -pwiem2202 -e "CREATE USER 'magento2'@'localhost' IDENTIFIED BY 'wiem2202';"
-#sudo mysql -u root -pwiem2202 -e "ALTER USER 'magento2'@'localhost' IDENTIFIED WITH mysql_native_password BY 'wiem2202';"
-#sudo mysql -u root -pwiem2202 -e "GRANT ALL PRIVILEGES ON *.* TO 'magento2'@'localhost' WITH GRANT OPTION;"
-#sudo mysql -u root -pwiem2202 -e "SELECT user,authentication_string,plugin,host FROM mysql.user;"
-#sudo mysql -u magento2 -pwiem2202 -e "CREATE DATABASE magento2;"
+#sudo mysql -u root -p${DBPassword} -e "SELECT user,authentication_string,plugin,host FROM mysql.user;"
+#sudo mysql -u root -p${DBPassword} -e "CREATE USER 'magento2'@'localhost' IDENTIFIED BY '{DBPassword}';"
+#sudo mysql -u root -p${DBPassword} -e "ALTER USER 'magento2'@'localhost' IDENTIFIED WITH mysql_native_password BY '{DBPassword}';"
+#sudo mysql -u root -p${DBPassword} -e "GRANT ALL PRIVILEGES ON *.* TO 'magento2'@'localhost' WITH GRANT OPTION;"
+#sudo mysql -u root -p${DBPassword} -e "SELECT user,authentication_string,plugin,host FROM mysql.user;"
+#sudo mysql -u magento2 -p${DBPassword} -e "CREATE DATABASE magento2;"
 ############### configure RDS mysql server
 sudo mysql -u ${DBName} -p${DBPassword} --host ${DBHost} -e "CREATE DATABASE magento2;"
 
