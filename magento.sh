@@ -102,7 +102,7 @@ sudo chown -R ubuntu:www-data .
 sudo chmod u+x bin/magento
 
 ################# configure magento
-sudo php bin/magento setup:install --base-url=http://${BaseUrl} --db-host=${DBHost} --db-name=${DBName} --db-user=${DBName} --db-password=${DBPassword} --admin-firstname=Admin --admin-lastname=Admin --admin-email=admin@admin.com --admin-user=admin --admin-password=${DBPassword} --language=en_US --currency=USD --timezone=America/Chicago --backend-frontname=admin --search-engine=elasticsearch7 --elasticsearch-host=https://${EsHost} --elasticsearch-port=${EsPort} --elasticsearch-enable-auth=1 --elasticsearch-username=${EsUser} --elasticsearch-password=${EsPassword}
+sudo php bin/magento setup:install --base-url=http://${BaseUrl} --db-host=${DBHost} --db-name=${DBName} --db-user=${DBName} --db-password=${DBPassword} --admin-firstname=admin --admin-lastname=admin --admin-email=admin@admin.com --admin-user=admin --admin-password=${DBPassword} --language=en_US --currency=USD --timezone=America/Chicago --backend-frontname=admin --search-engine=elasticsearch7 --elasticsearch-host=https://${EsHost} --elasticsearch-port=${EsPort} --elasticsearch-enable-auth=1 --elasticsearch-username=${EsUser} --elasticsearch-password=${EsPassword}
 
 
 ################# configure Apache
@@ -151,13 +151,36 @@ echo "***************Redis setup completed.***********"
 ############ install s3 module
 #cd
 #sudo wget https://github.com/wiembk/s3-extention/archive/master.zip
+#sudo apt install unzip
 #unzip master.zip
-#sudo cp s3-extention-main/app /var/www/html/magento2
+#sudo cp -r s3-extention-main/app /var/www/html/magento2
 #cd /var/www/html/magento2
+
+#sudo -u ubuntu composer --no-interaction require aws/aws-sdk-php
+
+#sudo -u ubuntu composer --no-interaction config --global http-basic.repo.magento.com "$PublicKey" "$PrivateKey"
+
+#sudo -u ubuntu composer --no-interaction create-project --no-install --repository-url=https://repo.magento.com/ magento/project-community-edition=2.4.3 magento2
+
+
+
 #sudo composer require aws/aws-sdk-php
 #sudo php bin/magento setup:upgrade
 #sudo php bin/magento setup:di:compile
 #sudo php bin/magento cache:flush
 #sudo php bin/magento cache:clean
+
+
+#php bin/magento config:set s3_amazon/general_settings/active
+#php bin/magento config:set s3_amazon/general_settings/access_key
+#php bin/magento config:set s3_amazon/general_settings/secret_key
+#php bin/magento config:set s3_amazon/general_settings/bucket
+#php bin/magento config:set s3_amazon/general_settings/region
+#php bin/magento config:set s3_amazon/cloudfront_settings/distribution_id
+
+
+
+
+
 
 echo "*************** S3 setup completed.***********"
