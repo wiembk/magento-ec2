@@ -22,8 +22,8 @@ RedisServer=$(aws cloudformation list-exports --query "Exports[?Name=='magento-e
 RedisPort=$(aws cloudformation list-exports --query "Exports[?Name=='magento-ec-ElastiCacheClusterPort'].Value" --output text --region eu-central-1)
 #BucketName='webkul-s3extension'
 Region='eu-central-1'
-PublicKey='49d1c54d206e19340755129627d96bf6'
-PrivateKey='db060a47cee75868043aa97359427ccf'
+PublicKey='25b33e3386f0eea8220063123f8c3742'
+PrivateKey='a6b0193ac564952673ad3c54d55c325f'
 
 #################### Update and install Apache
 sudo apt update
