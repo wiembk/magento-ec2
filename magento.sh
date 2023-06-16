@@ -137,10 +137,10 @@ sudo bin/magento setup:config:set --session-save=redis --session-save-redis-host
 
 sudo bin/magento setup:config:set --cache-backend=redis --cache-backend-redis-server=${RedisServer} --cache-backend-redis-port=${RedisPort} --cache-backend-redis-db=0
 
-sudo php bin/magento cache:flush
-sudo php bin/magento cache:clean
-sudo php bin/magento setup:upgrade
-sudo php bin/magento setup:di:compile
+#sudo php bin/magento cache:flush
+#sudo php bin/magento cache:clean
+#sudo php bin/magento setup:upgrade
+#sudo php bin/magento setup:di:compile
 
 sudo php bin/magento cache:flush
 sudo php bin/magento cache:clean
@@ -149,26 +149,26 @@ sudo php bin/magento indexer:reindex
 echo "***************Redis setup completed.***********"
 
 ############ install s3 module
-#cd
-#sudo wget https://github.com/wiembk/s3-extention/archive/master.zip
-#sudo apt install unzip
-#unzip master.zip
-#sudo cp -r s3-extention-main/app /var/www/html/magento2
-#cd /var/www/html/magento2
+cd
+sudo wget https://github.com/wiembk/s3-extention/archive/master.zip
+sudo apt install unzip
+unzip master.zip
+sudo cp -r s3-extention-main/app /var/www/html/magento2
+cd /var/www/html/magento2
 
-#sudo -u ubuntu composer --no-interaction require aws/aws-sdk-php
+sudo -u ubuntu composer --no-interaction require aws/aws-sdk-php
 
-#sudo -u ubuntu composer --no-interaction config --global http-basic.repo.magento.com "$PublicKey" "$PrivateKey"
+sudo -u ubuntu composer --no-interaction config --global http-basic.repo.magento.com "$PublicKey" "$PrivateKey"
 
-#sudo -u ubuntu composer --no-interaction create-project --no-install --repository-url=https://repo.magento.com/ magento/project-community-edition=2.4.3 magento2
+sudo -u ubuntu composer --no-interaction create-project --no-install --repository-url=https://repo.magento.com/ magento/project-community-edition=2.4.3 magento2
 
 
 
 #sudo composer require aws/aws-sdk-php
-#sudo php bin/magento setup:upgrade
-#sudo php bin/magento setup:di:compile
-#sudo php bin/magento cache:flush
-#sudo php bin/magento cache:clean
+sudo php bin/magento setup:upgrade
+sudo php bin/magento setup:di:compile
+sudo php bin/magento cache:flush
+sudo php bin/magento cache:clean
 
 
 #php bin/magento config:set s3_amazon/general_settings/active
