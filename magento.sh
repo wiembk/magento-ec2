@@ -24,7 +24,11 @@ RedisPort=$(aws cloudformation list-exports --query "Exports[?Name=='magento-ec-
 Region='eu-central-1'
 PublicKey='25b33e3386f0eea8220063123f8c3742'
 PrivateKey='a6b0193ac564952673ad3c54d55c325f'
-
+############ s3 parameters
+access_key='AKIA4PZTVEZPNKRZRR5T'
+secret_key='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'
+bucket='s3extention-m2'
+distribution_id='E1PCQ0CVHJWB9Q'
 #################### Update and install Apache
 sudo apt update
 sudo apt install apache2 -y
@@ -150,37 +154,43 @@ echo "***************Redis setup completed.***********"
 
 ############ install s3 module
 
-#cd
-#sudo wget https://github.com/wiembk/s3-extention/archive/master.zip
-#sudo apt install unzip
-#unzip master.zip
-#sudo cp s3-extention-main/app /var/www/html/magento2
-#sudo cp -r s3-extention-main/app /var/www/html/magento2
-#cd /var/www/html/magento2
+cd
+sudo wget https://github.com/wiembk/s3-extention/archive/master.zip
+sudo apt install unzip -y
+unzip master.zip
+sudo cp -r s3-extention-main/app /var/www/html/magento2
+cd /var/www/html/magento2
 
-#sudo -u ubuntu composer --no-interaction require aws/aws-sdk-php
+sudo -u ubuntu composer --no-interaction require aws/aws-sdk-php
 
-#sudo -u ubuntu composer --no-interaction config --global http-basic.repo.magento.com "$PublicKey" "$PrivateKey"
+sudo -u ubuntu composer --no-interaction config --global http-basic.repo.magento.com "$PublicKey" "$PrivateKey"
 
-#sudo -u ubuntu composer --no-interaction create-project --no-install --repository-url=https://repo.magento.com/ magento/project-community-edition=2.4.3 magento2
+sudo -u ubuntu composer --no-interaction create-project --no-install --repository-url=https://repo.magento.com/ magento/project-community-edition=2.4.3 magento2
 
 
 
 #sudo composer require aws/aws-sdk-php
-#sudo php bin/magento setup:upgrade
-#sudo php bin/magento setup:di:compile
-#sudo php bin/magento cache:flush
-#sudo php bin/magento cache:clean
+sudo php bin/magento setup:upgrade
+sudo php bin/magento setup:di:compile
+sudo php bin/magento cache:flush
+sudo php bin/magento cache:clean
 
 
-#php bin/magento config:set s3_amazon/general_settings/active
-#php bin/magento config:set s3_amazon/general_settings/access_key
-#php bin/magento config:set s3_amazon/general_settings/secret_key
-#php bin/magento config:set s3_amazon/general_settings/bucket
-#php bin/magento config:set s3_amazon/general_settings/region
-#php bin/magento config:set s3_amazon/cloudfront_settings/distribution_id
+
+sudo php bin/magento config:set s3_amazon/general_settings/active 1
+sudo php bin/magento config:set s3_amazon/general_settings/access_key "$access_key"
+sudo php bin/magento config:set s3_amazon/general_settings/secret_key "$secret_key"
+sudo php bin/magento config:set s3_amazon/general_settings/bucket "$bucket"
+sudo php bin/magento config:set s3_amazon/general_settings/region "$Region"
+sudo php bin/magento config:set s3_amazon/cloudfront_settings/distribution_id "$distribution_id"
+
 
 
 
 
 echo "*************** S3 setup completed.***********"
+
+
+
+
+
