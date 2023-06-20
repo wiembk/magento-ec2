@@ -190,6 +190,7 @@ sudo php bin/magento config:set s3_amazon/cloudfront_settings/distribution_id "$
 
 echo "*************** S3 setup completed.***********"
 
+bin/magento config:set --scope=default --scope-code=0 web/unsecure/base_static_url ""
 
 
 
