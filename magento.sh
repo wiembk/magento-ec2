@@ -100,6 +100,7 @@ sudo -u ubuntu composer install
 
 #################### Set directory permissions
 cd /var/www/html/magento2
+sudo usermod -aG www-data ubuntu
 sudo find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} +
 sudo find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} +
 sudo chown -R ubuntu:www-data .
@@ -110,6 +111,7 @@ sudo php bin/magento setup:install --base-url=http://${BaseUrl} --db-host=${DBHo
 
 
 ################# configure Apache
+
 cat <<EOF | sudo tee /etc/apache2/sites-available/000-default.conf > /dev/null
 <VirtualHost *:80>
     ServerAdmin webmaster@localhost
