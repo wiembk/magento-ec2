@@ -156,35 +156,35 @@ echo "***************Redis setup completed.***********"
 
 ############ install s3 module
 
-cd
-sudo wget https://github.com/wiembk/s3-extention/archive/master.zip
-sudo apt install unzip -y
-unzip master.zip
-sudo cp -r s3-extention-main/app /var/www/html/magento2
-cd /var/www/html/magento2
+#cd
+#sudo wget https://github.com/wiembk/s3-extention/archive/master.zip
+#sudo apt install unzip -y
+#unzip master.zip
+#sudo cp -r s3-extention-main/app /var/www/html/magento2
+#cd /var/www/html/magento2
 
-sudo -u ubuntu composer --no-interaction require aws/aws-sdk-php
+#sudo -u ubuntu composer --no-interaction require aws/aws-sdk-php
 
-sudo -u ubuntu composer --no-interaction config --global http-basic.repo.magento.com "$PublicKey" "$PrivateKey"
+#sudo -u ubuntu composer --no-interaction config --global http-basic.repo.magento.com "$PublicKey" "$PrivateKey"
 
-sudo -u ubuntu composer --no-interaction create-project --no-install --repository-url=https://repo.magento.com/ magento/project-community-edition=2.4.3 magento2
+#sudo -u ubuntu composer --no-interaction create-project --no-install --repository-url=https://repo.magento.com/ magento/project-community-edition=2.4.3 magento2
 
 
 
 #sudo composer require aws/aws-sdk-php
-sudo php bin/magento setup:upgrade
-sudo php bin/magento setup:di:compile
-sudo php bin/magento cache:flush
-sudo php bin/magento cache:clean
+#sudo php bin/magento setup:upgrade
+#sudo php bin/magento setup:di:compile
+#sudo php bin/magento cache:flush
+s#udo php bin/magento cache:clean
 
 
 
-sudo php bin/magento config:set s3_amazon/general_settings/active 1
-sudo php bin/magento config:set s3_amazon/general_settings/access_key "$access_key"
-sudo php bin/magento config:set s3_amazon/general_settings/secret_key "$secret_key"
-sudo php bin/magento config:set s3_amazon/general_settings/bucket "$bucket"
-sudo php bin/magento config:set s3_amazon/general_settings/region "$Region"
-sudo php bin/magento config:set s3_amazon/cloudfront_settings/distribution_id "$distribution_id"
+#sudo php bin/magento config:set s3_amazon/general_settings/active 1
+#sudo php bin/magento config:set s3_amazon/general_settings/access_key "$access_key"
+#sudo php bin/magento config:set s3_amazon/general_settings/secret_key "$secret_key"
+#sudo php bin/magento config:set s3_amazon/general_settings/bucket "$bucket"
+#sudo php bin/magento config:set s3_amazon/general_settings/region "$Region"
+#sudo php bin/magento config:set s3_amazon/cloudfront_settings/distribution_id "$distribution_id"
 
 
 
@@ -192,7 +192,7 @@ sudo php bin/magento config:set s3_amazon/cloudfront_settings/distribution_id "$
 
 echo "*************** S3 setup completed.***********"
 
-bin/magento config:set --scope=default --scope-code=0 web/unsecure/base_static_url ""
+#bin/magento config:set --scope=default --scope-code=0 web/unsecure/base_static_url ""
 
 
 
