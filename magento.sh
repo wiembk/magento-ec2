@@ -1,7 +1,7 @@
 #!/bin/bash
 ####################### install aws cli
-AccessKey='AKIA4PZTVEZPNB5I42WJ'
-SecretKey='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'
+AccessKey='AKIA4PZTVEZPJRH4STUP'
+SecretKey='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'
 sudo apt-get update
 sudo apt-get install -y awscli
 aws configure set aws_access_key_id "$AccessKey"
