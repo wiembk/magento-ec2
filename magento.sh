@@ -1,7 +1,7 @@
 #!/bin/bash
 ####################### install aws cli
-AccessKey='AKIA4PZTVEZPJRH4STUP'
-SecretKey='8ppyqzMpSR1VZPzk6d0d9O/lo917Ti1U+WmKDgX4'
+AccessKey='your_aws_accessKey'
+SecretKey='your_aws_secretKey'
 sudo apt-get update
 sudo apt-get install -y awscli
 aws configure set aws_access_key_id "$AccessKey"
@@ -22,13 +22,13 @@ RedisServer=$(aws cloudformation list-exports --query "Exports[?Name=='magento-e
 RedisPort=$(aws cloudformation list-exports --query "Exports[?Name=='magento-ec-ElastiCacheClusterPort'].Value" --output text --region eu-central-1)
 #BucketName='webkul-s3extension'
 Region='eu-central-1'
-PublicKey='25b33e3386f0eea8220063123f8c3742'
-PrivateKey='a6b0193ac564952673ad3c54d55c325f'
+PublicKey='your_magento_publicKey'
+PrivateKey='your_magento_privateKey'
 ############ s3 parameters
-access_key='AKIA4PZTVEZPNKRZRR5T'
-secret_key='teFlVjAHznxlupJb3d7bhv7SYws2fSuCiJhsnGR7'
+access_key='your_s3_publicKey'
+secret_key='your_s3_secretKey'
 bucket='s3extention-m2'
-distribution_id='E1PCQ0CVHJWB9Q'
+distribution_id='your_distribution_id'
 #################### Update and install Apache
 sudo apt update
 sudo apt install apache2 -y
