@@ -170,13 +170,11 @@ echo "***************Redis setup completed.***********"
 #sudo -u ubuntu composer --no-interaction create-project --no-install --repository-url=https://repo.magento.com/ magento/project-community-edition=2.4.3 magento2
 
 
-
 #sudo composer require aws/aws-sdk-php
 #sudo php bin/magento setup:upgrade
 #sudo php bin/magento setup:di:compile
 #sudo php bin/magento cache:flush
 s#udo php bin/magento cache:clean
-
 
 
 #sudo php bin/magento config:set s3_amazon/general_settings/active 1
@@ -185,9 +183,6 @@ s#udo php bin/magento cache:clean
 #sudo php bin/magento config:set s3_amazon/general_settings/bucket "$bucket"
 #sudo php bin/magento config:set s3_amazon/general_settings/region "$Region"
 #sudo php bin/magento config:set s3_amazon/cloudfront_settings/distribution_id "$distribution_id"
-
-
-
 
 
 echo "*************** S3 setup completed.***********"
